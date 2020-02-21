@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Title</title>
+  <link rel="stylesheet" href="1.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sound/tink.wav"></audio>
+  <audio data-key="83" src="sound/tink.wav"></audio>
+  <audio data-key="68" src="sound/tink.wav"></audio>
+  <audio data-key="70" src="sound/tink.wav"></audio>
+  <audio data-key="71" src="sound/tink.wav"></audio>
+  <audio data-key="72" src="sound/tink.wav"></audio>
+  <audio data-key="74" src="sound/tink.wav"></audio>
+  <audio data-key="75" src="sound/tink.wav"></audio>
+  <audio data-key="76" src="sound/tink.wav"></audio>
+
+<script>
+  //khoi tao function reset sau moi lan click
+  function removeTransition(e) {
+    //neu event khong co thuoc tinh transform thi bo qua 
+    if (e.propertyName !== 'transform') return;
+    console.log(this);
+    e.target.classList.remove('playing');
+  }
+  //khoi tao function khi play sound track
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+    //them thuoc tinh playing cho class duoc chon click
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+</script>
+
+
+</body>
+</html>
