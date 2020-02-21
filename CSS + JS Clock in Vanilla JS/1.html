@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+      <audio src="tink.wav"></audio>
+
+  <style>
+    html {
+      background: #018DED url(https://zicxa.com/hinh-anh/wp-content/uploads/2019/07/T%E1%BB%95ng-h%E1%BB%A3p-c%C3%A1c-h%C3%ACnh-%E1%BA%A3nh-background-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-11.jpg);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid RED;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 50%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+</style>
+
+<script>
+  const secondHand = document.querySelector('.second-hand');
+  const minHand = document.querySelector('.min-hand');
+  const hourHand = document.querySelector('.hour-hand');
+   function setDate() {
+     const now = new Date();
+     //thiet lap cho kim giay
+     const seconds = now.getSeconds();
+     //tao bien secondsDegrees khi chia 60 giay cho 360 do trong dong ho
+     const secondsDegrees = ((seconds/60)* 360) + 90;
+     secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+     if (secondHand.style.transform = `rotate(${secondsDegrees}deg)`) {
+          var source = "beep-3.wav"
+          var audio = new Audio();
+          audio.src = source;
+          audio.autoplay = true;
+     }
+ 
+
+    //thiet lap cho kim phut
+      const mins = now.getMinutes();
+     //tao bien secondsDegrees khi chia 60 phut cho 360 do trong dong ho
+     const minsDegrees = ((mins/60)* 360) + 90;
+     minHand.style.transform = `rotate(${minsDegrees}deg)`;
+     minHand.style.background = `red`;
+
+
+    //thiet lap cho kim gio
+      const hours = now.getHours();
+     //tao bien secondsDegrees khi chia 12 gio cho 360 do trong dong ho
+     const hoursDegrees = ((hours/12)* 360) + 90;
+     hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+     //thiet lap cac thuoc tinh css
+     hourHand.style.background= `blue`;
+     hourHand.style.width =`120px`;
+     hourHand.style.left =`30px`;
+   }
+   setInterval(setDate, 1000);
+</script>
+</body>
+</html>
